@@ -31,10 +31,10 @@ const CheckoutModal = ({ open, onOpenChange, cartItems, total }: CheckoutModalPr
   });
 
   // Initialize form data with localStorage values when component mounts
-  const savedPhone = localStorage.getItem("phone");
-  const savedName = localStorage.getItem("name");
   useEffect(() => {
     
+    const savedPhone = localStorage.getItem("phone");
+    const savedName = localStorage.getItem("name");
     setFormData(prev => ({
       ...prev,
       fullName: savedName || '',
@@ -76,9 +76,11 @@ const CheckoutModal = ({ open, onOpenChange, cartItems, total }: CheckoutModalPr
     dispatch({ type: 'CLEAR_CART' });
     onOpenChange(false);
     
+    const fullName = localStorage.getItem("name")
+    const phoneNumber = localStorage.getItem("phone")
     // Reset form
     setFormData({
-      fullName: '', phoneNumber: '', StreetAddress: '', city: '', specialInstructions: '',
+      fullName, phoneNumber, StreetAddress: '', city: '', specialInstructions: '',
       
     });
     localStorage.removeItem("ufo-burger-cart")

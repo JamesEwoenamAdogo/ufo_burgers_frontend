@@ -46,7 +46,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <img
-              src="../assets/ufo-burger-logo.jpg"
+              src="https://res.cloudinary.com/dcr9kvnd4/image/upload/v1758755409/471314934_1983969495439076_5459694656517519701_n_kaechn.jpg"
               alt="UFO Burgers Logo"
               className="w-10 h-10 rounded-full object-cover"
             />

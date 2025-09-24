@@ -31,9 +31,9 @@ const CheckoutModal = ({ open, onOpenChange, cartItems, total }: CheckoutModalPr
   });
 
   // Initialize form data with localStorage values when component mounts
+  const savedPhone = localStorage.getItem("phone");
+  const savedName = localStorage.getItem("name");
   useEffect(() => {
-    const savedName = localStorage.getItem("name");
-    const savedPhone = localStorage.getItem("phone");
     
     setFormData(prev => ({
       ...prev,

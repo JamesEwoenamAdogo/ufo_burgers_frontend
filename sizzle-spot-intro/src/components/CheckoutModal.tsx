@@ -76,8 +76,8 @@ const CheckoutModal = ({ open, onOpenChange, cartItems, total }: CheckoutModalPr
     dispatch({ type: 'CLEAR_CART' });
     onOpenChange(false);
     
-    const fullName = localStorage.getItem("name")
-    const phoneNumber = localStorage.getItem("phone")
+    const fullName = localStorage.getItem("name") || ""
+    const phoneNumber = localStorage.getItem("phone") || ""
     // Reset form
     setFormData({
       fullName, phoneNumber, StreetAddress: '', city: '', specialInstructions: '',

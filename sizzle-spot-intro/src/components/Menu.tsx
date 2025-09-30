@@ -1,9 +1,16 @@
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Star, Clock, Flame } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
+import ComboCustomizationModal from "./ComboCustomizationModal";
+import SpecialFriesModal from "./SpecialFriesModal";
+import WingsComboModal from "./WingsComboModal";
+import BurgerCustomizationModal from "./BurgerCustomizationModal";
+import WingsCustomizationModal from "./WingsCustomization";
+import { CornDogModal } from "./CornDogModal";
 import ufoBeefImage from "@/assets/ufo-beef-burger.jpg";
 import galaxyChickenImage from "@/assets/galaxy-chicken-burger.jpg";
 import ufoWagyuImage from "@/assets/ufo-wagyu-burger.jpg";
@@ -53,6 +60,18 @@ import milkshakeImage from "@/assets/milkshake.jpg";
 const Menu = () => {
   const { dispatch } = useCart();
   const { toast } = useToast();
+  const [comboModalOpen, setComboModalOpen] = useState(false);
+  const [selectedComboItem, setSelectedComboItem] = useState<any>(null);
+  const [specialFriesModalOpen, setSpecialFriesModalOpen] = useState(false);
+  const [selectedSpecialFriesItem, setSelectedSpecialFriesItem] = useState<any>(null);
+  const [wingsComboModalOpen, setWingsComboModalOpen] = useState(false);
+  const [selectedWingsComboItem, setSelectedWingsComboItem] = useState<any>(null);
+  const [burgerModalOpen, setBurgerModalOpen] = useState(false);
+  const [selectedBurgerItem, setSelectedBurgerItem] = useState<any>(null);
+  const [wingsModalOpen, setWingsModalOpen] = useState(false);
+  const [selectedWingsItem, setSelectedWingsItem] = useState<any>(null);
+  const [cornDogModalOpen, setCornDogModalOpen] = useState(false);
+  const [selectedCornDogItem, setSelectedCornDogItem] = useState<any>(null);
 
   const menuItems = [
     {
@@ -387,10 +406,21 @@ const Menu = () => {
 
   const sidesItems = [
     {
-      id: 'fries',
-      name: "FRIES",
-      description: "Golden crispy french fries",
-      price: 60.00,
+      id: 'golden-fried-rice',
+      name: "GOLDEN FRIED RICE",
+      description: "Fluffy rice stir-fried with egg",
+      price: 50.00,
+      rating: 4.6,
+      time: "8min",
+      isSpicy: false,
+      popular: true,
+      image: friesImage, // Using fries image as placeholder
+    },
+    {
+      id: 'french-fries',
+      name: "FRENCH FRIES",
+      description: "Crispy, golden-brown potato fries, a classic side dish or snack",
+      price: 40.00,
       rating: 4.5,
       time: "5min",
       isSpicy: false,
@@ -398,53 +428,29 @@ const Menu = () => {
       image: friesImage,
     },
     {
-      id: 'yam',
-      name: "YAM",
-      description: "Fresh roasted yam slices",
-      price: 60.00,
-      rating: 4.3,
-      time: "8min",
-      isSpicy: false,
-      popular: false,
-      image: yamImage,
-    },
-    {
-      id: 'sweet-potatoes',
-      name: "SWEET POTATOES",
-      description: "Golden sweet potato fries",
-      price: 70.00,
+      id: 'sweet-potato-fries',
+      name: "SWEET POTATO FRIES",
+      description: "Crispy and golden, our sweet potato fries offer a delightful blend of sweetness and savory flavor",
+      price: 45.00,
       rating: 4.6,
-      time: "8min",
+      time: "6min",
       isSpicy: false,
       popular: true,
       image: sweetPotatoesImage,
     },
+    {
+      id: 'yam-chips',
+      name: "YAM CHIPS",
+      description: "Golden and crispy yam fries seasoned to perfection and make a fantastic side dish for your favorite burger!",
+      price: 30.00,
+      rating: 4.4,
+      time: "6min",
+      isSpicy: false,
+      popular: false,
+      image: yamImage,
+    },
   ];
 
-  const sweetBurgerItems = [
-    {
-      id: 'nutella-burger',
-      name: "NUTELLA BURGER",
-      description: "Nutella, banana, and ice cream, all wrapped in a crispy brioche bun",
-      price: 80.00,
-      rating: 4.8,
-      time: "8min",
-      isSpicy: false,
-      popular: true,
-      image: nutellaBurgerImage,
-    },
-    {
-      id: 'peanut-burger',
-      name: "PEANUT BURGER",
-      description: "Creamy peanut butter and ice cream in a crispy brioche bun",
-      price: 30.00,
-      rating: 4.7,
-      time: "8min",
-      isSpicy: false,
-      popular: true,
-      image: peanutBurgerImage,
-    },
-  ];
 
   const drinksItems = [
     {
@@ -504,7 +510,294 @@ const Menu = () => {
     },
   ];
 
-  const addToCart = (item: typeof menuItems[0] | typeof sauceItems[0] | typeof cornDogItems[0] | typeof premiumToppingsItems[0] | typeof sidesItems[0] | typeof sweetBurgerItems[0] | typeof drinksItems[0]) => {
+  const newItems = [
+    {
+      id: 'ufo-special-fries',
+      name: "UFO SPECIAL FRIES",
+      description: "Crispy golden fries loaded with tender Galaxy chicken, marinated in cosmic spices and glazed with UFO secret sauce, topped with melted cheese.",
+      price: 170.00,
+      rating: 4.9,
+      time: "15min",
+      isSpicy: false,
+      popular: true,
+      image: friesImage,
+    },
+    {
+      id: 'golden-fried-rice',
+      name: "GOLDEN FRIED RICE",
+      description: "Fluffy rice stir-fried with egg",
+      price: 50.00,
+      rating: 4.6,
+      time: "12min",
+      isSpicy: false,
+      popular: false,
+      image: friesImage, // Using fries image as placeholder
+    },
+    {
+      id: 'galaxy-wings-combo2',
+      name: "GALAXY CHICKEN WINGS COMBO2",
+      description: "6pcs of galaxy wings with ufo golden fried rice and your choice of drink",
+      price: 150.00,
+      rating: 4.8,
+      time: "18min",
+      isSpicy: false,
+      popular: true,
+      image: galaxyChickenWingsImage,
+    },
+    {
+      id: 'ufo-beef-wing-combo',
+      name: "UFO BEEF BURGER & WING COMBO",
+      description: "Your favorite UFO beef burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
+      price: 170.00,
+      rating: 4.9,
+      time: "20min",
+      isSpicy: false,
+      popular: true,
+      image: ufoBeefImage,
+    },
+    {
+      id: 'galaxy-chicken-wing-combo',
+      name: "GALAXY CHICKEN BURGER & WING COMBO",
+      description: "Your favorite Galaxy chicken burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
+      price: 160.00,
+      rating: 4.8,
+      time: "20min",
+      isSpicy: false,
+      popular: true,
+      image: galaxyChickenImage,
+    },
+    {
+      id: 'ufo-wagyu-wing-combo',
+      name: "UFO WAGYU BEEF BURGER & WING COMBO",
+      description: "Your favorite UFO Wagyu beef burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
+      price: 220.00,
+      rating: 5.0,
+      time: "22min",
+      isSpicy: false,
+      popular: true,
+      image: ufoWagyuImage,
+    },
+  ];
+
+  const comboItems = [
+    {
+      id: 'ufo-beef-combo',
+      name: "UFO BEEF BURGER COMBO",
+      description: "UFO Beef Burger + Fries + Drink",
+      price: 150.00,
+      rating: 4.8,
+      time: "15min",
+      isSpicy: false,
+      popular: true,
+      image: ufoBeefImage,
+    },
+    {
+      id: 'ufo-wagyu-combo',
+      name: "UFO WAGYU BEEF BURGER COMBO",
+      description: "UFO Wagyu Beef Burger + Fries + Drink",
+      price: 200.00,
+      rating: 4.9,
+      time: "18min",
+      isSpicy: false,
+      popular: true,
+      image: ufoWagyuImage,
+    },
+    {
+      id: 'galaxy-chicken-combo',
+      name: "GALAXY CHICKEN BURGER COMBO",
+      description: "Galaxy Chicken Burger + Fries + Drink",
+      price: 140.00,
+      rating: 4.7,
+      time: "15min",
+      isSpicy: false,
+      popular: true,
+      image: galaxyChickenImage,
+    },
+    {
+      id: 'galaxy-wings-combo',
+      name: "GALAXY CHICKEN WINGS COMBO",
+      description: "Galaxy chicken wings + yam + drink",
+      price: 130.00,
+      rating: 4.6,
+      time: "12min",
+      isSpicy: false,
+      popular: false,
+      image: galaxyChickenWingsImage,
+    },
+    {
+      id: 'galaxy-wings-combo2-combo',
+      name: "GALAXY CHICKEN WINGS COMBO2",
+      description: "6pcs of galaxy wings with ufo golden fried rice and your choice of drink",
+      price: 150.00,
+      rating: 4.8,
+      time: "18min",
+      isSpicy: false,
+      popular: true,
+      image: galaxyChickenWingsImage,
+    },
+    {
+      id: 'galaxy-bites-combo',
+      name: "GALAXY CHICKEN BITES COMBO",
+      description: "Galaxy chicken bites + fries + Drink",
+      price: 140.00,
+      rating: 4.5,
+      time: "10min",
+      isSpicy: false,
+      popular: false,
+      image: galaxyChickenBitesImage,
+    },
+    {
+      id: 'ufo-beef-wing-combo-combo',
+      name: "UFO BEEF BURGER & WING COMBO",
+      description: "Your favorite UFO beef burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
+      price: 170.00,
+      rating: 4.9,
+      time: "20min",
+      isSpicy: false,
+      popular: true,
+      image: ufoBeefImage,
+    },
+    {
+      id: 'galaxy-chicken-wing-combo-combo',
+      name: "GALAXY CHICKEN BURGER & WING COMBO",
+      description: "Your favorite Galaxy chicken burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
+      price: 160.00,
+      rating: 4.8,
+      time: "20min",
+      isSpicy: false,
+      popular: true,
+      image: galaxyChickenImage,
+    },
+    {
+      id: 'ufo-wagyu-wing-combo-combo',
+      name: "UFO WAGYU BEEF BURGER & WING COMBO",
+      description: "Your favorite UFO Wagyu beef burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
+      price: 220.00,
+      rating: 5.0,
+      time: "22min",
+      isSpicy: false,
+      popular: true,
+      image: ufoWagyuImage,
+    },
+  ];
+
+  const burgersAndWingsItems = [
+    {
+      id: 'ufo-wagyu-beef-burger',
+      name: "UFO WAGYU BEEF BURGER",
+      description: "Grilled wagyu beef patty. American cheese, your choice of sauce, and two toppings, in a crispy brioche bun.",
+      price: 180.00,
+      rating: 4.9,
+      time: "15min",
+      isSpicy: false,
+      popular: true,
+      image: ufoWagyuImage,
+    },
+    {
+      id: 'ufo-beef-burger-burgers-wings',
+      name: "UFO BEEF BURGER",
+      description: "Grilled beef patty, american cheese, your choice of sauce, and two toppings. In a crispy brioche bun.",
+      price: 130.00,
+      rating: 4.8,
+      time: "12min",
+      isSpicy: false,
+      popular: true,
+      image: ufoBeefImage,
+    },
+    {
+      id: 'galaxy-chicken-burger-burgers-wings',
+      name: "GALAXY CHICKEN BURGER",
+      description: "Fried chicken breast, american cheese, your choice of sauce, and two toppings. In a crispy brioche bun.",
+      price: 120.00,
+      rating: 4.7,
+      time: "12min",
+      isSpicy: false,
+      popular: true,
+      image: galaxyChickenImage,
+    },
+    {
+      id: 'ufo-egg-burger',
+      name: "UFO EGG BURGER",
+      description: "Egg, American Cheese, your choice of sauce, and two toppings, in a crispy brioche bun",
+      price: 70.00,
+      rating: 4.3,
+      time: "7min",
+      isSpicy: false,
+      popular: false,
+      image: eggBurgerImage,
+    },
+    {
+      id: 'galaxy-chicken-wings-burgers-wings',
+      name: "GALAXY CHICKEN WINGS",
+      description: "Crispy, tender chicken wings tossed in your choice of sauce (6PCs).",
+      price: 90.00,
+      rating: 4.6,
+      time: "10min",
+      isSpicy: false,
+      popular: true,
+      image: galaxyChickenWingsImage,
+    },
+  ];
+
+  const bitesItems = [
+    {
+      id: 'ufo-special-fries-bites',
+      name: "UFO SPECIAL FRIES",
+      description: "Crispy golden fries loaded with tender Galaxy chicken, marinated in cosmic spices and glazed with UFO secret sauce, topped with melted cheese.",
+      price: 170.00,
+      rating: 4.9,
+      time: "15min",
+      isSpicy: false,
+      popular: true,
+      image: friesImage,
+    },
+    {
+      id: 'galaxy-chicken-bites-bites',
+      name: "GALAXY CHICKEN BITES",
+      description: "Crispy, tender chicken bites coated in crunchy corn flakes with your choice of sauce.",
+      price: 130.00,
+      rating: 4.7,
+      time: "8min",
+      isSpicy: false,
+      popular: true,
+      image: galaxyChickenBitesImage,
+    },
+    {
+      id: 'galaxy-chicken-sandwich-bites',
+      name: "GALAXY CHICKEN SANDWICH",
+      description: "Crispy tender fried chicken breast, cabbage, your choice of sauce, and two toppings, in a soft bun.",
+      price: 70.00,
+      rating: 4.5,
+      time: "8min",
+      isSpicy: false,
+      popular: false,
+      image: galaxyChickenSandwichImage,
+    },
+    {
+      id: 'corndog-bite-bites',
+      name: "CORNDOG BITE",
+      description: "Crispy hotdog coated in flakes, cabbage, your choice of sauce, and two toppings, in a soft bun.",
+      price: 45.00,
+      rating: 4.4,
+      time: "6min",
+      isSpicy: false,
+      popular: false,
+      image: flakesCornDogImage,
+    },
+    {
+      id: 'hotdog-bite-bites',
+      name: "HOTDOG BITE",
+      description: "Chicken hotdog, cabbage, your choice of sauce. and two toppings, in a soft bun.",
+      price: 45.00,
+      rating: 4.4,
+      time: "6min",
+      isSpicy: false,
+      popular: false,
+      image: hotdogBiteImage,
+    },
+  ];
+
+  const addToCart = (item: typeof menuItems[0] | typeof sauceItems[0] | typeof cornDogItems[0] | typeof premiumToppingsItems[0] | typeof sidesItems[0] | typeof drinksItems[0] | typeof newItems[0] | typeof comboItems[0] | typeof burgersAndWingsItems[0] | typeof bitesItems[0]) => {
     dispatch({
       type: 'ADD_ITEM',
       payload: {
@@ -521,7 +814,80 @@ const Menu = () => {
     });
   };
 
-  const renderMenuItems = (items: any[], title: string) => (
+  const handleComboClick = (item: any) => {
+    setSelectedComboItem(item);
+    setComboModalOpen(true);
+  };
+
+  const handleSpecialFriesClick = (item: any) => {
+    setSelectedSpecialFriesItem(item);
+    setSpecialFriesModalOpen(true);
+  };
+
+  const handleWingsComboClick = (item: any) => {
+    setSelectedWingsComboItem(item);
+    setWingsComboModalOpen(true);
+  };
+
+  const handleBurgerClick = (item: any) => {
+    setSelectedBurgerItem(item);
+    setBurgerModalOpen(true);
+  };
+
+  const handleWingsClick = (item: any) => {
+    setSelectedWingsItem(item);
+    setWingsModalOpen(true);
+  };
+
+  const handleCornDogClick = (item: any) => {
+    setSelectedCornDogItem(item);
+    setCornDogModalOpen(true);
+  };
+
+  const handleItemClick = (item: any) => {
+    // Check if it's UFO special fries
+    if (item.id === 'ufo-special-fries' || item.id === 'ufo-special-fries-bites') {
+      handleSpecialFriesClick(item);
+    }
+    // Check if it's Galaxy Chicken Bites (bites category)
+    else if (item.id === 'galaxy-chicken-bites-bites') {
+      handleWingsClick(item);
+    }
+    // Check if it's Galaxy Chicken Sandwich (bites category)
+    else if (item.id === 'galaxy-chicken-sandwich-bites') {
+      handleBurgerClick(item);
+    }
+    // Check if it's corn dog bite or hot dog bite (bites category)
+    else if (item.id === 'corndog-bite-bites' || item.id === 'hotdog-bite-bites') {
+      handleBurgerClick(item);
+    }
+    // Check if it's Galaxy Chicken wings combos
+    else if (item.id === 'galaxy-wings-combo' || item.id === 'galaxy-wings-combo2' || item.id === 'galaxy-wings-combo2-combo') {
+      handleWingsComboClick(item);
+    }
+    // Check if it's burger & wing combos that need full customization
+    else if (item.id.includes('wing-combo') && (item.id.includes('ufo-beef') || item.id.includes('galaxy-chicken') || item.id.includes('ufo-wagyu'))) {
+      handleComboClick(item);
+    }
+    // Check if it's individual burgers that need customization
+    else if (item.id === 'ufo-beef' || item.id === 'ufo-wagyu' || item.id === 'ufo-wagyu-beef-burger' || item.id === 'ufo-beef-burger-burgers-wings' || item.id === 'galaxy-chicken-burger-burgers-wings' || item.id === 'ufo-egg-burger') {
+      handleBurgerClick(item);
+    }
+    // Check if it's galaxy chicken wings that need wings customization
+    else if (item.id === 'galaxy-chicken-wings-burgers-wings') {
+      handleWingsClick(item);
+    }
+    // Check if it's any corn dog item that needs corn dog customization
+    else if (cornDogItems.some(cornDogItem => cornDogItem.id === item.id)) {
+      handleCornDogClick(item);
+    }
+    // Regular add to cart
+    else {
+      addToCart(item);
+    }
+  };
+
+  const renderMenuItems = (items: any[], title: string, isCombo: boolean = false, isSpecialHandling: boolean = false) => (
     <div className="space-y-6">
       <h3 className="text-3xl font-heading font-bold text-foreground mb-8 text-center">
         <span className="text-gradient">{title}</span>
@@ -583,9 +949,9 @@ const Menu = () => {
               
               <Button 
                 className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 btn-glow"
-                onClick={() => addToCart(item)}
+                onClick={() => isCombo ? handleComboClick(item) : isSpecialHandling ? handleItemClick(item) : addToCart(item)}
               >
-                Add to Cart - ₵{item.price.toFixed(2)}
+                {(isCombo || isSpecialHandling) ? "Customize" : "Add to Cart"} - ₵{item.price.toFixed(2)}
               </Button>
             </CardContent>
           </Card>
@@ -608,23 +974,42 @@ const Menu = () => {
         </div>
 
         {/* Tabbed Menu */}
-        <Tabs defaultValue="main-menu" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-7 mb-8">
+        <Tabs defaultValue="new" className="w-full">
+          <TabsList className="grid w-full grid-cols-5 lg:grid-cols-10 mb-8">
+            <TabsTrigger value="new" className="text-sm">New</TabsTrigger>
+            <TabsTrigger value="combo" className="text-sm">Combo</TabsTrigger>
+            <TabsTrigger value="burgers-wings" className="text-sm">Burgers & Wings</TabsTrigger>
+            <TabsTrigger value="bites" className="text-sm">Bites</TabsTrigger>
             <TabsTrigger value="main-menu" className="text-sm">Main Menu</TabsTrigger>
             <TabsTrigger value="corn-dogs" className="text-sm">Corn Dogs</TabsTrigger>
             <TabsTrigger value="premium-toppings" className="text-sm">Premium Toppings</TabsTrigger>
             <TabsTrigger value="sauces" className="text-sm">Sauces</TabsTrigger>
             <TabsTrigger value="sides" className="text-sm">Sides</TabsTrigger>
-            <TabsTrigger value="sweet-burger" className="text-sm">Sweet Burger</TabsTrigger>
             <TabsTrigger value="drinks" className="text-sm">Drinks</TabsTrigger>
           </TabsList>
 
+          <TabsContent value="new" className="mt-6">
+            {renderMenuItems(newItems, "New", false, true)}
+          </TabsContent>
+
+          <TabsContent value="combo" className="mt-6">
+            {renderMenuItems(comboItems, "Combo", true)}
+          </TabsContent>
+
+          <TabsContent value="burgers-wings" className="mt-6">
+            {renderMenuItems(burgersAndWingsItems, "Burgers & Wings", false, true)}
+          </TabsContent>
+
+          <TabsContent value="bites" className="mt-6">
+            {renderMenuItems(bitesItems, "Bites", false, true)}
+          </TabsContent>
+
           <TabsContent value="main-menu" className="mt-6">
-            {renderMenuItems(menuItems, "Main Menu")}
+            {renderMenuItems(menuItems, "Main Menu", false, true)}
           </TabsContent>
 
           <TabsContent value="corn-dogs" className="mt-6">
-            {renderMenuItems(cornDogItems, "Corn Dogs")}
+            {renderMenuItems(cornDogItems, "Corn Dogs", false, true)}
           </TabsContent>
 
           <TabsContent value="premium-toppings" className="mt-6">
@@ -639,14 +1024,46 @@ const Menu = () => {
             {renderMenuItems(sidesItems, "Sides")}
           </TabsContent>
 
-          <TabsContent value="sweet-burger" className="mt-6">
-            {renderMenuItems(sweetBurgerItems, "Sweet Burger")}
-          </TabsContent>
-
           <TabsContent value="drinks" className="mt-6">
             {renderMenuItems(drinksItems, "Drinks")}
           </TabsContent>
         </Tabs>
+
+        <ComboCustomizationModal
+          isOpen={comboModalOpen}
+          onClose={() => setComboModalOpen(false)}
+          comboItem={selectedComboItem}
+        />
+        
+        <SpecialFriesModal
+          isOpen={specialFriesModalOpen}
+          onClose={() => setSpecialFriesModalOpen(false)}
+          item={selectedSpecialFriesItem}
+        />
+        
+        <WingsComboModal
+          isOpen={wingsComboModalOpen}
+          onClose={() => setWingsComboModalOpen(false)}
+          item={selectedWingsComboItem}
+        />
+        
+        <BurgerCustomizationModal
+          isOpen={burgerModalOpen}
+          onClose={() => setBurgerModalOpen(false)}
+          burgerItem={selectedBurgerItem}
+        />
+        
+        <WingsCustomizationModal
+          isOpen={wingsModalOpen}
+          onClose={() => setWingsModalOpen(false)}
+          wingsItem={selectedWingsItem}
+        />
+        
+        <CornDogModal
+          isOpen={cornDogModalOpen}
+          onClose={() => setCornDogModalOpen(false)}
+          item={selectedCornDogItem}
+        />
       </div>
     </section>
   );

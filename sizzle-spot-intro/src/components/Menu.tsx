@@ -1052,7 +1052,7 @@ const Menu = () => {
             Our <span className="text-gradient">Signature Menu</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Each burger is crafted with premium ingredients and grilled to perfection
+            Each burger is crafted with premium ingredients to perfection
           </p>
         </div>
 

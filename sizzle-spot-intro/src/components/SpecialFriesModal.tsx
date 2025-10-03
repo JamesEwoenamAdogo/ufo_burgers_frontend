@@ -21,17 +21,17 @@ const SpecialFriesModal: React.FC<SpecialFriesModalProps> = ({
   const [selectedToppings, setSelectedToppings] = useState<string[]>([]);
 
   const premiumToppings = [
-    { id: 'extra-beef-wagyu-patty', name: 'Extra beef WAGYU patty', price: 90 },
-    { id: 'extra-beef-patty', name: 'Extra beef patty', price: 40 },
-    { id: 'extra-galaxy-chicken', name: 'Extra Galaxy chicken', price: 40 },
-    { id: 'extra-american-cheese', name: 'Extra American Cheese', price: 13 },
-    { id: 'bacon', name: 'Bacon', price: 25 },
-    { id: 'egg', name: 'Egg', price: 13 },
-    { id: 'extra-diced-onions', name: 'Extra Diced Onions', price: 7 },
-    { id: 'extra-caramelized-onions', name: 'Extra Caramelized Onions', price: 7 },
-    { id: 'extra-cabbage', name: 'Extra Cabbage', price: 7 },
-    { id: 'extra-jalapeno-peppers', name: 'Extra jalapeno peppers', price: 7 },
-    { id: 'extra-pickles', name: 'Extra Pickles', price: 7 }
+    { id: 'extra-beef-wagyu-patty', name: 'Extra beef WAGYU patty', price: 49 },
+    { id: 'extra-beef-patty', name: 'Extra beef patty', price: 28 },
+    { id: 'extra-galaxy-chicken', name: 'Extra Galaxy chicken', price: 28 },
+    { id: 'extra-american-cheese', name: 'Extra American Cheese', price: 10.5 },
+    { id: 'bacon', name: 'Bacon', price: 21 },
+    { id: 'egg', name: 'Egg', price: 10.5 },
+    { id: 'extra-diced-onions', name: 'Extra Diced Onions', price: 4.9 },
+    { id: 'extra-caramelized-onions', name: 'Extra Caramelized Onions', price: 4.9 },
+    { id: 'extra-cabbage', name: 'Extra Cabbage', price: 4.9 },
+    { id: 'extra-jalapeno-peppers', name: 'Extra jalapeno peppers', price: 4.9 },
+    { id: 'extra-pickles', name: 'Extra Pickles', price: 4.9 }
   ];
 
   const handleToppingToggle = (toppingId: string) => {

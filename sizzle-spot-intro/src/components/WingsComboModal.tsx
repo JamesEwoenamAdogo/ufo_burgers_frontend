@@ -39,9 +39,9 @@ const WingsComboModal: React.FC<WingsComboModalProps> = ({
   ];
 
   const drinkOptions = [
-    { id: 'strawberry-milkshake', name: 'Strawberry Milkshake', price: 40 },
-    { id: 'chocolate-milkshake', name: 'Chocolate Milkshake', price: 40 },
-    { id: 'vanilla-milkshake', name: 'Vanilla Milkshake', price: 40 },
+    { id: 'strawberry-milkshake', name: 'Strawberry Milkshake', price: 28 },
+    { id: 'chocolate-milkshake', name: 'Chocolate Milkshake', price: 28 },
+    { id: 'vanilla-milkshake', name: 'Vanilla Milkshake', price: 28 },
     { id: 'coke', name: 'Coke', price: 0 },
     { id: 'coke-zero', name: 'Coke Zero', price: 0 },
     { id: 'fanta', name: 'Fanta', price: 0 },

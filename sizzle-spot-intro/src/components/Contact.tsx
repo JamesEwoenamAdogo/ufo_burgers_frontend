@@ -7,22 +7,12 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Location",
-      details: ["123 Burger Street", "Downtown District", "New York, NY 10001"],
-    },
-    {
-      icon: Phone,
-      title: "Phone",
-      details: ["(555) 123-BURG", "(555) 123-2874", "Call for reservations"],
+      details: ["East legon, Jungle Avenue 13", "UFO Burger"],
     },
     {
       icon: Clock,
       title: "Hours",
-      details: ["Mon-Thu: 11AM - 10PM", "Fri-Sat: 11AM - 11PM", "Sun: 12PM - 9PM"],
-    },
-    {
-      icon: Mail,
-      title: "Email",
-      details: ["hello@ufoburgers.com", "orders@ufoburgers.com", "We reply within 24hrs"],
+      details: ["Monday to Sunday", "11AM to 10PM"],
     },
   ];
 
@@ -41,7 +31,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Info Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             {contactInfo.map((info, index) => (
               <Card 
                 key={info.title}
@@ -70,62 +60,12 @@ const Contact = () => {
             ))}
           </div>
 
-          {/* Map and CTA Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            {/* Map Placeholder */}
-            <div className="animate-scale-in">
-              <div className="bg-gradient-to-br from-secondary to-muted rounded-2xl p-8 h-80 flex items-center justify-center shadow-warm">
-                <div className="text-center">
-                  <MapPin className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-foreground mb-2">Find Us Here</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Located in the heart of downtown, just 2 blocks from Central Park
-                  </p>
-                  <Button 
-                    variant="outline"
-                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                  >
-                    Get Directions
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* CTA Section */}
-            <div className="animate-fade-in">
-              <div className="bg-gradient-primary rounded-2xl p-8 text-center shadow-glow">
-                <h3 className="text-3xl font-heading font-bold text-primary-foreground mb-4">
-                  Ready to Order?
-                </h3>
-                <p className="text-primary-foreground/90 mb-6 text-lg">
-                  Skip the wait and order online for pickup or delivery. 
-                  Your favorite burger is just a click away!
-                </p>
-                <div className="space-y-4">
-                  <Button 
-                    size="lg"
-                    className="w-full bg-burger-cream text-burger-dark hover:bg-burger-cream/90 transition-all duration-300 btn-glow"
-                  >
-                    Order Online Now
-                  </Button>
-                  <Button 
-                    size="lg"
-                    variant="outline"
-                    className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300"
-                  >
-                    Call for Pickup
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Additional Info */}
           <div className="mt-16 text-center animate-fade-in">
             <div className="bg-secondary/50 rounded-xl p-6">
-              <h4 className="text-xl font-bold text-foreground mb-2">Special Offers</h4>
+              <h4 className="text-xl font-bold text-foreground mb-2">Promotions</h4>
               <p className="text-muted-foreground">
-                🎉 Free delivery on orders over $25 • 🍟 Free fries on Fridays • 👥 Group discounts available
+                🍟 Free fries on Tuesday • 🍗 Wings promotion on Wednesday
               </p>
             </div>
           </div>

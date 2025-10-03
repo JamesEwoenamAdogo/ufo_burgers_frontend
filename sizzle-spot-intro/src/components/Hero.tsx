@@ -64,21 +64,6 @@ const Hero = () => {
             </Button>
           </div>
 
-          {/* Enhanced Stats */}
-          <div className="grid grid-cols-3 gap-12 max-w-2xl mx-auto">
-            <div className="text-center animate-slide-up bg-burger-cream/10 backdrop-blur-sm rounded-2xl p-6 border border-burger-gold/20 hover:bg-burger-cream/20 transition-all duration-300 hover:scale-105">
-              <div className="text-4xl md:text-5xl font-black text-burger-gold mb-2 drop-shadow-lg">500+</div>
-              <div className="text-burger-cream/90 text-base font-medium">Happy Customers Daily</div>
-            </div>
-            <div className="text-center animate-slide-up bg-burger-cream/10 backdrop-blur-sm rounded-2xl p-6 border border-burger-gold/20 hover:bg-burger-cream/20 transition-all duration-300 hover:scale-105" style={{ animationDelay: "0.1s" }}>
-              <div className="text-4xl md:text-5xl font-black text-burger-gold mb-2 drop-shadow-lg">4.9</div>
-              <div className="text-burger-cream/90 text-base font-medium">Average Rating</div>
-            </div>
-            <div className="text-center animate-slide-up bg-burger-cream/10 backdrop-blur-sm rounded-2xl p-6 border border-burger-gold/20 hover:bg-burger-cream/20 transition-all duration-300 hover:scale-105" style={{ animationDelay: "0.2s" }}>
-              <div className="text-4xl md:text-5xl font-black text-burger-gold mb-2 drop-shadow-lg">15min</div>
-              <div className="text-burger-cream/90 text-base font-medium">Average Wait Time</div>
-            </div>
-          </div>
         </div>
       </div>
 

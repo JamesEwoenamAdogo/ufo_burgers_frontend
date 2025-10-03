@@ -1,10 +1,11 @@
-import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from "lucide-react";
+import { Facebook, Instagram, MapPin, Phone, Mail } from "lucide-react";
+import { FaTiktok } from "react-icons/fa";
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Facebook, href: "https://web.facebook.com/people/UFO-burger-Gh/61571874129178/#", label: "Facebook" },
+    { icon: Instagram, href: "https://www.instagram.com/ufoburger_gh/?hl=en", label: "Instagram" },
+    { icon: FaTiktok, href: "https://www.tiktok.com/discover/ufo-burger-in-ghana", label: "TikTok" },
   ];
 
   const quickLinks = [
@@ -12,8 +13,6 @@ const Footer = () => {
     { name: "About Us", href: "#about" },
     { name: "Contact", href: "#contact" },
     { name: "Order Online", href: "#" },
-    { name: "Catering", href: "#" },
-    { name: "Careers", href: "#" },
   ];
 
   return (
@@ -29,7 +28,7 @@ const Footer = () => {
               <span className="font-heading font-bold text-xl">UFO Burgers</span>
             </div>
             <p className="text-burger-cream/80 leading-relaxed">
-              Serving cosmic burgers since 2015. Made with love from across the galaxy, 
+              Serving cosmic burgers since 2024. Made with love from across the galaxy, 
               served with pride, enjoyed with earthlings and aliens alike.
             </p>
             <div className="flex space-x-4">
@@ -69,7 +68,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-burger-gold flex-shrink-0" />
-                <span className="text-burger-cream/80">123 Burger Street, New York, NY 10001</span>
+                <span className="text-burger-cream/80">East legon, Jungle Avenue 13, UFO Burger</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-burger-gold flex-shrink-0" />
@@ -87,37 +86,18 @@ const Footer = () => {
             <h3 className="font-bold text-lg mb-4 text-burger-gold">Opening Hours</h3>
             <div className="space-y-2 text-burger-cream/80">
               <div className="flex justify-between">
-                <span>Monday - Thursday</span>
+                <span>Monday - Sunday</span>
                 <span>11AM - 10PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Friday - Saturday</span>
-                <span>11AM - 11PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Sunday</span>
-                <span>12PM - 9PM</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-burger-cream/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="border-t border-burger-cream/20 mt-8 pt-8 text-center">
           <p className="text-burger-cream/60 text-sm">
             © 2024 UFO Burgers. All rights reserved.
           </p>
-          <div className="flex space-x-6 text-sm">
-            <a href="#" className="text-burger-cream/60 hover:text-burger-gold transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-burger-cream/60 hover:text-burger-gold transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="text-burger-cream/60 hover:text-burger-gold transition-colors">
-              Cookie Policy
-            </a>
-          </div>
         </div>
       </div>
     </footer>

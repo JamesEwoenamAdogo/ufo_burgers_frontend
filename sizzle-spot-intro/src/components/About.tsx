@@ -11,7 +11,7 @@ const About = () => {
     {
       icon: Clock,
       title: "Fresh Made Daily",
-      description: "Every burger is prepared fresh to order, ensuring the perfect taste every time.",
+      description: "Each burger is crafted with premium ingredients to perfection.",
     },
     {
       icon: Award,
@@ -35,7 +35,7 @@ const About = () => {
               Why Choose <span className="text-gradient">UFO Burgers</span>?
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Since 2015, we've been bringing cosmic flavors to Earth with passion, quality, and 
+              Since 2024, we've been bringing cosmic flavors to Earth with passion, quality, and 
               a commitment to serving our community the most otherworldly dining experience possible.
             </p>
           </div>
@@ -102,10 +102,6 @@ const About = () => {
                     <div className="bg-accent p-6 rounded-xl text-center">
                       <div className="text-3xl font-bold text-accent-foreground">4.9★</div>
                       <div className="text-accent-foreground/80 text-sm">Customer Rating</div>
-                    </div>
-                    <div className="bg-gradient-primary p-6 rounded-xl text-center">
-                      <div className="text-3xl font-bold text-primary-foreground">15</div>
-                      <div className="text-primary-foreground/80 text-sm">Menu Items</div>
                     </div>
                   </div>
                 </div>

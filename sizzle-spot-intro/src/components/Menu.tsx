@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Star, Clock, Flame } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
@@ -60,6 +61,7 @@ import milkshakeImage from "@/assets/milkshake.jpg";
 const Menu = () => {
   const { dispatch } = useCart();
   const { toast } = useToast();
+  const [selectedCategory, setSelectedCategory] = useState("new");
   const [comboModalOpen, setComboModalOpen] = useState(false);
   const [selectedComboItem, setSelectedComboItem] = useState<any>(null);
   const [specialFriesModalOpen, setSpecialFriesModalOpen] = useState(false);
@@ -73,12 +75,26 @@ const Menu = () => {
   const [cornDogModalOpen, setCornDogModalOpen] = useState(false);
   const [selectedCornDogItem, setSelectedCornDogItem] = useState<any>(null);
 
+  const categories = [
+    { value: "new", label: "New" },
+    { value: "combo", label: "Combo" },
+    { value: "burgers-wings", label: "Burgers & Wings" },
+    { value: "bites", label: "Bites" },
+    { value: "main-menu", label: "Main Menu" },
+    { value: "corn-dogs", label: "Corn Dogs" },
+    { value: "premium-toppings", label: "Premium Toppings" },
+    { value: "sauces", label: "Sauces" },
+    { value: "sides", label: "Sides" },
+    { value: "drinks", label: "Drinks" },
+  ];
+
   const menuItems = [
     {
       id: 'ufo-beef',
       name: "UFO BEEF BURGER",
       description: "Grilled beef patty, American cheese, your choice of sauce, and two toppings, in a crispy brioche bun",
-      price: 90.00,
+      price: 63.00,
+      oldPrice: 90.00,
       rating: 4.8,
       time: "12min",
       isSpicy: false,
@@ -89,7 +105,8 @@ const Menu = () => {
       id: 'galaxy-chicken',
       name: "GALAXY CHICKEN BURGER",
       description: "Fried chicken breast, American cheese, your choice of sauce, and two toppings, in a crispy brioche bun",
-      price: 90.00,
+      price: 63.00,
+      oldPrice: 90.00,
       rating: 4.9,
       time: "12min",
       isSpicy: false,
@@ -100,7 +117,8 @@ const Menu = () => {
       id: 'ufo-wagyu',
       name: "UFO BEEF WAGYU BURGER",
       description: "Grilled Wagyu Beef patty, American cheese, your choice of sauce, and two toppings, in a crispy brioche bun",
-      price: 150.00,
+      price: 105.00,
+      oldPrice: 150.00,
       rating: 4.9,
       time: "15min",
       isSpicy: false,
@@ -111,7 +129,8 @@ const Menu = () => {
       id: 'galaxy-chicken-bites',
       name: "GALAXY CHICKEN BITES",
       description: "Crispy, tender chicken bites coated in crunchy corn flakes with your choice of sauce",
-      price: 90.00,
+      price: 63.00,
+      oldPrice: 90.00,
       rating: 4.7,
       time: "8min",
       isSpicy: false,
@@ -122,7 +141,8 @@ const Menu = () => {
       id: 'galaxy-chicken-wings',
       name: "GALAXY CHICKEN WINGS X6",
       description: "Crispy, tender chicken wings tossed in your choice of sauce",
-      price: 60.00,
+      price: 49.00,
+      oldPrice: 70.00,
       rating: 4.6,
       time: "10min",
       isSpicy: false,
@@ -133,7 +153,8 @@ const Menu = () => {
       id: 'galaxy-chicken-sandwich',
       name: "GALAXY CHICKEN SANDWICH",
       description: "Crispy tender fried chicken breast, cabbage, your choice of sauce, and two toppings, in a soft bun",
-      price: 50.00,
+      price: 35.00,
+      oldPrice: 50.00,
       rating: 4.5,
       time: "8min",
       isSpicy: false,
@@ -144,7 +165,8 @@ const Menu = () => {
       id: 'hotdog-bite',
       name: "HOTDOG BITE",
       description: "Chicken hotdog, cabbage, your choice of sauce, and two toppings, in a soft bun",
-      price: 30.00,
+      price: 21.00,
+      oldPrice: 30.00,
       rating: 4.4,
       time: "6min",
       isSpicy: false,
@@ -155,7 +177,8 @@ const Menu = () => {
       id: 'egg-burger',
       name: "EGG BURGER",
       description: "Egg, American cheese, your choice of sauce, and two toppings, in a soft bun",
-      price: 50.00,
+      price: 35.00,
+      oldPrice: 50.00,
       rating: 4.3,
       time: "7min",
       isSpicy: false,
@@ -169,7 +192,8 @@ const Menu = () => {
       id: 'ufo-sauce',
       name: "UFO SAUCE",
       description: "Our signature UFO sauce blend",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.8,
       time: "Available",
       isSpicy: false,
@@ -180,7 +204,8 @@ const Menu = () => {
       id: 'galaxy-sauce',
       name: "GALAXY SAUCE",
       description: "Cosmic galaxy flavored sauce",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.7,
       time: "Available",
       isSpicy: false,
@@ -191,7 +216,8 @@ const Menu = () => {
       id: 'honey-mustard',
       name: "HONEY MUSTARD",
       description: "Sweet and tangy honey mustard",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.6,
       time: "Available",
       isSpicy: false,
@@ -202,7 +228,8 @@ const Menu = () => {
       id: 'barbecue',
       name: "BARBECUE",
       description: "Rich and smoky barbecue sauce",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.5,
       time: "Available",
       isSpicy: false,
@@ -213,7 +240,8 @@ const Menu = () => {
       id: 'buffalo',
       name: "BUFFALO",
       description: "Spicy buffalo wing sauce",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.4,
       time: "Available",
       isSpicy: true,
@@ -224,7 +252,8 @@ const Menu = () => {
       id: 'mayo',
       name: "MAYO",
       description: "Creamy mayonnaise",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.3,
       time: "Available",
       isSpicy: false,
@@ -235,7 +264,8 @@ const Menu = () => {
       id: 'ketchup',
       name: "KETCHUP",
       description: "Classic tomato ketchup",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.2,
       time: "Available",
       isSpicy: false,
@@ -246,7 +276,8 @@ const Menu = () => {
       id: 'mustard',
       name: "MUSTARD",
       description: "Tangy yellow mustard",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.1,
       time: "Available",
       isSpicy: false,
@@ -257,7 +288,8 @@ const Menu = () => {
       id: 'shito',
       name: "SHITO",
       description: "Spicy African pepper sauce",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.9,
       time: "Available",
       isSpicy: true,
@@ -271,7 +303,8 @@ const Menu = () => {
       id: 'flakes-corn-dog',
       name: "FLAKES CORN DOG X2",
       description: "Crispy hotdog coated in crunchy corn flakes",
-      price: 60.00,
+      price: 42.00,
+      oldPrice: 60.00,
       rating: 4.5,
       time: "8min",
       isSpicy: false,
@@ -282,7 +315,8 @@ const Menu = () => {
       id: 'indomie-corn-dog',
       name: "INDOMIE CORN DOG X2",
       description: "Crispy hotdog coated in crunchy Indomie",
-      price: 60.00,
+      price: 42.00,
+      oldPrice: 60.00,
       rating: 4.6,
       time: "8min",
       isSpicy: false,
@@ -293,7 +327,8 @@ const Menu = () => {
       id: 'cheesy-sausage-dog',
       name: "CHEESY SAUSAGE DOG X2",
       description: "Crispy hotdog & mozzarella coated in crunchy corn flakes",
-      price: 70.00,
+      price: 49.00,
+      oldPrice: 70.00,
       rating: 4.7,
       time: "10min",
       isSpicy: false,
@@ -304,7 +339,8 @@ const Menu = () => {
       id: 'cheese-flakes-corn-dog',
       name: "CHEESE FLAKES CORN DOG X2",
       description: "Crispy mozzarella coated in crunchy corn flakes",
-      price: 80.00,
+      price: 56.00,
+      oldPrice: 80.00,
       rating: 4.8,
       time: "10min",
       isSpicy: false,
@@ -315,7 +351,8 @@ const Menu = () => {
       id: 'cheese-indomie-corn-dog',
       name: "CHEESE INDOMIE CORN DOG X2",
       description: "Crispy mozzarella coated in crunchy Indomie",
-      price: 80.00,
+      price: 56.00,
+      oldPrice: 80.00,
       rating: 4.8,
       time: "10min",
       isSpicy: false,
@@ -329,7 +366,8 @@ const Menu = () => {
       id: 'fried-egg',
       name: "EGG",
       description: "Fresh fried egg with runny yolk",
-      price: 5.00,
+      price: 10.5,
+      oldPrice: 15.00,
       rating: 4.6,
       time: "Available",
       isSpicy: false,
@@ -340,7 +378,8 @@ const Menu = () => {
       id: 'american-cheese-topping',
       name: "AMERICAN CHEESE",
       description: "Extra slice of melted American cheese",
-      price: 10.00,
+      price: 10.5,
+      oldPrice: 15.00,
       rating: 4.5,
       time: "Available",
       isSpicy: false,
@@ -351,7 +390,8 @@ const Menu = () => {
       id: 'bacon-topping',
       name: "BACON",
       description: "Crispy bacon strips for smoky flavor",
-      price: 10.00,
+      price: 21.00,
+      oldPrice: 30.00,
       rating: 4.8,
       time: "Available",
       isSpicy: false,
@@ -362,7 +402,8 @@ const Menu = () => {
       id: 'extra-beef-patty',
       name: "EXTRA BEEF PATTY",
       description: "Additional grilled beef patty for double the meat",
-      price: 20.00,
+      price: 28.00,
+      oldPrice: 40.00,
       rating: 4.9,
       time: "Available",
       isSpicy: false,
@@ -373,7 +414,8 @@ const Menu = () => {
       id: 'extra-wagyu-patty',
       name: "EXTRA WAGYU PATTY",
       description: "Premium wagyu beef patty for ultimate indulgence",
-      price: 30.00,
+      price: 49.00,
+      oldPrice: 70.00,
       rating: 5.0,
       time: "Available",
       isSpicy: false,
@@ -384,7 +426,8 @@ const Menu = () => {
       id: 'extra-galaxy-chicken',
       name: "EXTRA GALAXY CHICKEN",
       description: "Additional crispy fried chicken breast",
-      price: 50.00,
+      price: 28.00,
+      oldPrice: 40.00,
       rating: 4.9,
       time: "Available",
       isSpicy: false,
@@ -395,7 +438,8 @@ const Menu = () => {
       id: 'corn-dogs-topping',
       name: "CORN DOGS",
       description: "Mini corn dogs as a unique burger topping",
-      price: 30.00,
+      price: 21.00,
+      oldPrice: 30.00,
       rating: 4.4,
       time: "Available",
       isSpicy: false,
@@ -409,7 +453,8 @@ const Menu = () => {
       id: 'golden-fried-rice',
       name: "GOLDEN FRIED RICE",
       description: "Fluffy rice stir-fried with egg",
-      price: 50.00,
+      price: 35.00,
+      oldPrice: 50.00,
       rating: 4.6,
       time: "8min",
       isSpicy: false,
@@ -420,7 +465,8 @@ const Menu = () => {
       id: 'french-fries',
       name: "FRENCH FRIES",
       description: "Crispy, golden-brown potato fries, a classic side dish or snack",
-      price: 40.00,
+      price: 28.00,
+      oldPrice: 40.00,
       rating: 4.5,
       time: "5min",
       isSpicy: false,
@@ -431,7 +477,8 @@ const Menu = () => {
       id: 'sweet-potato-fries',
       name: "SWEET POTATO FRIES",
       description: "Crispy and golden, our sweet potato fries offer a delightful blend of sweetness and savory flavor",
-      price: 45.00,
+      price: 31.00,
+      oldPrice: 45.00,
       rating: 4.6,
       time: "6min",
       isSpicy: false,
@@ -442,7 +489,8 @@ const Menu = () => {
       id: 'yam-chips',
       name: "YAM CHIPS",
       description: "Golden and crispy yam fries seasoned to perfection and make a fantastic side dish for your favorite burger!",
-      price: 30.00,
+      price: 21.00,
+      oldPrice: 30.00,
       rating: 4.4,
       time: "6min",
       isSpicy: false,
@@ -457,7 +505,8 @@ const Menu = () => {
       id: 'water',
       name: "WATER",
       description: "Crystal clear refreshing water",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.2,
       time: "Available",
       isSpicy: false,
@@ -468,7 +517,8 @@ const Menu = () => {
       id: 'soft-drinks',
       name: "SOFT DRINKS",
       description: "Assorted soft drinks and sodas",
-      price: 5.00,
+      price: 4.9,
+      oldPrice: 7.00,
       rating: 4.3,
       time: "Available",
       isSpicy: false,
@@ -479,7 +529,8 @@ const Menu = () => {
       id: 'juice',
       name: "JUICE",
       description: "Fresh fruit juices",
-      price: 15.00,
+      price: 10.5,
+      oldPrice: 15.00,
       rating: 4.5,
       time: "Available",
       isSpicy: false,
@@ -490,7 +541,8 @@ const Menu = () => {
       id: 'beer',
       name: "BEER",
       description: "Cold beer bottles",
-      price: 30.00,
+      price: 21.00,
+      oldPrice: 30.00,
       rating: 4.6,
       time: "Available",
       isSpicy: false,
@@ -501,7 +553,8 @@ const Menu = () => {
       id: 'milkshake',
       name: "MILKSHAKE",
       description: "Creamy milkshakes in various flavors",
-      price: 40.00,
+      price: 28.00,
+      oldPrice: 40.00,
       rating: 4.8,
       time: "5min",
       isSpicy: false,
@@ -515,7 +568,8 @@ const Menu = () => {
       id: 'ufo-special-fries',
       name: "UFO SPECIAL FRIES",
       description: "Crispy golden fries loaded with tender Galaxy chicken, marinated in cosmic spices and glazed with UFO secret sauce, topped with melted cheese.",
-      price: 170.00,
+      price: 119.00,
+      oldPrice: 170.00,
       rating: 4.9,
       time: "15min",
       isSpicy: false,
@@ -526,7 +580,8 @@ const Menu = () => {
       id: 'golden-fried-rice',
       name: "GOLDEN FRIED RICE",
       description: "Fluffy rice stir-fried with egg",
-      price: 50.00,
+      price: 35.00,
+      oldPrice: 50.00,
       rating: 4.6,
       time: "12min",
       isSpicy: false,
@@ -537,7 +592,8 @@ const Menu = () => {
       id: 'galaxy-wings-combo2',
       name: "GALAXY CHICKEN WINGS COMBO2",
       description: "6pcs of galaxy wings with ufo golden fried rice and your choice of drink",
-      price: 150.00,
+      price: 105.00,
+      oldPrice: 150.00,
       rating: 4.8,
       time: "18min",
       isSpicy: false,
@@ -548,7 +604,8 @@ const Menu = () => {
       id: 'ufo-beef-wing-combo',
       name: "UFO BEEF BURGER & WING COMBO",
       description: "Your favorite UFO beef burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
-      price: 170.00,
+      price: 119.00,
+      oldPrice: 170.00,
       rating: 4.9,
       time: "20min",
       isSpicy: false,
@@ -559,7 +616,8 @@ const Menu = () => {
       id: 'galaxy-chicken-wing-combo',
       name: "GALAXY CHICKEN BURGER & WING COMBO",
       description: "Your favorite Galaxy chicken burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
-      price: 160.00,
+      price: 112.00,
+      oldPrice: 160.00,
       rating: 4.8,
       time: "20min",
       isSpicy: false,
@@ -570,7 +628,8 @@ const Menu = () => {
       id: 'ufo-wagyu-wing-combo',
       name: "UFO WAGYU BEEF BURGER & WING COMBO",
       description: "Your favorite UFO Wagyu beef burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
-      price: 220.00,
+      price: 154.00,
+      oldPrice: 220.00,
       rating: 5.0,
       time: "22min",
       isSpicy: false,
@@ -584,7 +643,8 @@ const Menu = () => {
       id: 'ufo-beef-combo',
       name: "UFO BEEF BURGER COMBO",
       description: "UFO Beef Burger + Fries + Drink",
-      price: 150.00,
+      price: 105.00,
+      oldPrice: 150.00,
       rating: 4.8,
       time: "15min",
       isSpicy: false,
@@ -595,7 +655,8 @@ const Menu = () => {
       id: 'ufo-wagyu-combo',
       name: "UFO WAGYU BEEF BURGER COMBO",
       description: "UFO Wagyu Beef Burger + Fries + Drink",
-      price: 200.00,
+      price: 140.00,
+      oldPrice: 200.00,
       rating: 4.9,
       time: "18min",
       isSpicy: false,
@@ -606,7 +667,8 @@ const Menu = () => {
       id: 'galaxy-chicken-combo',
       name: "GALAXY CHICKEN BURGER COMBO",
       description: "Galaxy Chicken Burger + Fries + Drink",
-      price: 140.00,
+      price: 98.00,
+      oldPrice: 140.00,
       rating: 4.7,
       time: "15min",
       isSpicy: false,
@@ -617,7 +679,8 @@ const Menu = () => {
       id: 'galaxy-wings-combo',
       name: "GALAXY CHICKEN WINGS COMBO",
       description: "Galaxy chicken wings + yam + drink",
-      price: 130.00,
+      price: 91.00,
+      oldPrice: 130.00,
       rating: 4.6,
       time: "12min",
       isSpicy: false,
@@ -628,7 +691,8 @@ const Menu = () => {
       id: 'galaxy-wings-combo2-combo',
       name: "GALAXY CHICKEN WINGS COMBO2",
       description: "6pcs of galaxy wings with ufo golden fried rice and your choice of drink",
-      price: 150.00,
+      price: 105.00,
+      oldPrice: 150.00,
       rating: 4.8,
       time: "18min",
       isSpicy: false,
@@ -639,7 +703,8 @@ const Menu = () => {
       id: 'galaxy-bites-combo',
       name: "GALAXY CHICKEN BITES COMBO",
       description: "Galaxy chicken bites + fries + Drink",
-      price: 140.00,
+      price: 98.00,
+      oldPrice: 140.00,
       rating: 4.5,
       time: "10min",
       isSpicy: false,
@@ -650,7 +715,8 @@ const Menu = () => {
       id: 'ufo-beef-wing-combo-combo',
       name: "UFO BEEF BURGER & WING COMBO",
       description: "Your favorite UFO beef burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
-      price: 170.00,
+      price: 119.00,
+      oldPrice: 170.00,
       rating: 4.9,
       time: "20min",
       isSpicy: false,
@@ -661,7 +727,8 @@ const Menu = () => {
       id: 'galaxy-chicken-wing-combo-combo',
       name: "GALAXY CHICKEN BURGER & WING COMBO",
       description: "Your favorite Galaxy chicken burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
-      price: 160.00,
+      price: 112.00,
+      oldPrice: 160.00,
       rating: 4.8,
       time: "20min",
       isSpicy: false,
@@ -672,7 +739,8 @@ const Menu = () => {
       id: 'ufo-wagyu-wing-combo-combo',
       name: "UFO WAGYU BEEF BURGER & WING COMBO",
       description: "Your favorite UFO Wagyu beef burger with a side of french fries, Drink and additional 2PCS. of Galaxy wings",
-      price: 220.00,
+      price: 154.00,
+      oldPrice: 220.00,
       rating: 5.0,
       time: "22min",
       isSpicy: false,
@@ -686,7 +754,8 @@ const Menu = () => {
       id: 'ufo-wagyu-beef-burger',
       name: "UFO WAGYU BEEF BURGER",
       description: "Grilled wagyu beef patty. American cheese, your choice of sauce, and two toppings, in a crispy brioche bun.",
-      price: 180.00,
+      price: 126.00,
+      oldPrice: 180.00,
       rating: 4.9,
       time: "15min",
       isSpicy: false,
@@ -697,7 +766,8 @@ const Menu = () => {
       id: 'ufo-beef-burger-burgers-wings',
       name: "UFO BEEF BURGER",
       description: "Grilled beef patty, american cheese, your choice of sauce, and two toppings. In a crispy brioche bun.",
-      price: 130.00,
+      price: 91.00,
+      oldPrice: 130.00,
       rating: 4.8,
       time: "12min",
       isSpicy: false,
@@ -708,7 +778,8 @@ const Menu = () => {
       id: 'galaxy-chicken-burger-burgers-wings',
       name: "GALAXY CHICKEN BURGER",
       description: "Fried chicken breast, american cheese, your choice of sauce, and two toppings. In a crispy brioche bun.",
-      price: 120.00,
+      price: 84.00,
+      oldPrice: 120.00,
       rating: 4.7,
       time: "12min",
       isSpicy: false,
@@ -719,7 +790,8 @@ const Menu = () => {
       id: 'ufo-egg-burger',
       name: "UFO EGG BURGER",
       description: "Egg, American Cheese, your choice of sauce, and two toppings, in a crispy brioche bun",
-      price: 70.00,
+      price: 49.00,
+      oldPrice: 70.00,
       rating: 4.3,
       time: "7min",
       isSpicy: false,
@@ -730,7 +802,8 @@ const Menu = () => {
       id: 'galaxy-chicken-wings-burgers-wings',
       name: "GALAXY CHICKEN WINGS",
       description: "Crispy, tender chicken wings tossed in your choice of sauce (6PCs).",
-      price: 90.00,
+      price: 63.00,
+      oldPrice: 90.00,
       rating: 4.6,
       time: "10min",
       isSpicy: false,
@@ -744,7 +817,8 @@ const Menu = () => {
       id: 'ufo-special-fries-bites',
       name: "UFO SPECIAL FRIES",
       description: "Crispy golden fries loaded with tender Galaxy chicken, marinated in cosmic spices and glazed with UFO secret sauce, topped with melted cheese.",
-      price: 170.00,
+      price: 119.00,
+      oldPrice: 170.00,
       rating: 4.9,
       time: "15min",
       isSpicy: false,
@@ -755,7 +829,8 @@ const Menu = () => {
       id: 'galaxy-chicken-bites-bites',
       name: "GALAXY CHICKEN BITES",
       description: "Crispy, tender chicken bites coated in crunchy corn flakes with your choice of sauce.",
-      price: 130.00,
+      price: 91.00,
+      oldPrice: 130.00,
       rating: 4.7,
       time: "8min",
       isSpicy: false,
@@ -766,7 +841,8 @@ const Menu = () => {
       id: 'galaxy-chicken-sandwich-bites',
       name: "GALAXY CHICKEN SANDWICH",
       description: "Crispy tender fried chicken breast, cabbage, your choice of sauce, and two toppings, in a soft bun.",
-      price: 70.00,
+      price: 49.00,
+      oldPrice: 70.00,
       rating: 4.5,
       time: "8min",
       isSpicy: false,
@@ -777,7 +853,8 @@ const Menu = () => {
       id: 'corndog-bite-bites',
       name: "CORNDOG BITE",
       description: "Crispy hotdog coated in flakes, cabbage, your choice of sauce, and two toppings, in a soft bun.",
-      price: 45.00,
+      price: 31.00,
+      oldPrice: 45.00,
       rating: 4.4,
       time: "6min",
       isSpicy: false,
@@ -788,7 +865,8 @@ const Menu = () => {
       id: 'hotdog-bite-bites',
       name: "HOTDOG BITE",
       description: "Chicken hotdog, cabbage, your choice of sauce. and two toppings, in a soft bun.",
-      price: 45.00,
+      price: 31.00,
+      oldPrice: 45.00,
       rating: 4.4,
       time: "6min",
       isSpicy: false,
@@ -921,7 +999,12 @@ const Menu = () => {
                 <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                   {item.name}
                 </h3>
-                <span className="text-2xl font-bold text-primary">₵{item.price.toFixed(2)}</span>
+                <div className="flex flex-col items-end">
+                  {item.oldPrice && (
+                    <span className="text-sm text-muted-foreground line-through">₵{item.oldPrice.toFixed(2)}</span>
+                  )}
+                  <span className="text-2xl font-bold text-primary">₵{item.price.toFixed(2)}</span>
+                </div>
               </div>
               
               <p className="text-muted-foreground mb-4 leading-relaxed">
@@ -973,61 +1056,46 @@ const Menu = () => {
           </p>
         </div>
 
-        {/* Tabbed Menu */}
-        <Tabs defaultValue="new" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 lg:grid-cols-10 mb-8">
-            <TabsTrigger value="new" className="text-sm">New</TabsTrigger>
-            <TabsTrigger value="combo" className="text-sm">Combo</TabsTrigger>
-            <TabsTrigger value="burgers-wings" className="text-sm">Burgers & Wings</TabsTrigger>
-            <TabsTrigger value="bites" className="text-sm">Bites</TabsTrigger>
-            <TabsTrigger value="main-menu" className="text-sm">Main Menu</TabsTrigger>
-            <TabsTrigger value="corn-dogs" className="text-sm">Corn Dogs</TabsTrigger>
-            <TabsTrigger value="premium-toppings" className="text-sm">Premium Toppings</TabsTrigger>
-            <TabsTrigger value="sauces" className="text-sm">Sauces</TabsTrigger>
-            <TabsTrigger value="sides" className="text-sm">Sides</TabsTrigger>
-            <TabsTrigger value="drinks" className="text-sm">Drinks</TabsTrigger>
+        {/* Mobile Dropdown */}
+        <div className="lg:hidden mb-8">
+          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select category" />
+            </SelectTrigger>
+            <SelectContent>
+              {categories.map((category) => (
+                <SelectItem key={category.value} value={category.value}>
+                  {category.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Desktop Tabs */}
+        <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full hidden lg:block">
+          <TabsList className="grid w-full grid-cols-10 mb-8">
+            {categories.map((category) => (
+              <TabsTrigger key={category.value} value={category.value} className="text-sm">
+                {category.label}
+              </TabsTrigger>
+            ))}
           </TabsList>
-
-          <TabsContent value="new" className="mt-6">
-            {renderMenuItems(newItems, "New", false, true)}
-          </TabsContent>
-
-          <TabsContent value="combo" className="mt-6">
-            {renderMenuItems(comboItems, "Combo", true)}
-          </TabsContent>
-
-          <TabsContent value="burgers-wings" className="mt-6">
-            {renderMenuItems(burgersAndWingsItems, "Burgers & Wings", false, true)}
-          </TabsContent>
-
-          <TabsContent value="bites" className="mt-6">
-            {renderMenuItems(bitesItems, "Bites", false, true)}
-          </TabsContent>
-
-          <TabsContent value="main-menu" className="mt-6">
-            {renderMenuItems(menuItems, "Main Menu", false, true)}
-          </TabsContent>
-
-          <TabsContent value="corn-dogs" className="mt-6">
-            {renderMenuItems(cornDogItems, "Corn Dogs", false, true)}
-          </TabsContent>
-
-          <TabsContent value="premium-toppings" className="mt-6">
-            {renderMenuItems(premiumToppingsItems, "Premium Toppings")}
-          </TabsContent>
-
-          <TabsContent value="sauces" className="mt-6">
-            {renderMenuItems(sauceItems, "Sauces")}
-          </TabsContent>
-
-          <TabsContent value="sides" className="mt-6">
-            {renderMenuItems(sidesItems, "Sides")}
-          </TabsContent>
-
-          <TabsContent value="drinks" className="mt-6">
-            {renderMenuItems(drinksItems, "Drinks")}
-          </TabsContent>
         </Tabs>
+
+        {/* Menu Content */}
+        <div className="mt-6">
+          {selectedCategory === "new" && renderMenuItems(newItems, "New", false, true)}
+          {selectedCategory === "combo" && renderMenuItems(comboItems, "Combo", true)}
+          {selectedCategory === "burgers-wings" && renderMenuItems(burgersAndWingsItems, "Burgers & Wings", false, true)}
+          {selectedCategory === "bites" && renderMenuItems(bitesItems, "Bites", false, true)}
+          {selectedCategory === "main-menu" && renderMenuItems(menuItems, "Main Menu", false, true)}
+          {selectedCategory === "corn-dogs" && renderMenuItems(cornDogItems, "Corn Dogs", false, true)}
+          {selectedCategory === "premium-toppings" && renderMenuItems(premiumToppingsItems, "Premium Toppings")}
+          {selectedCategory === "sauces" && renderMenuItems(sauceItems, "Sauces")}
+          {selectedCategory === "sides" && renderMenuItems(sidesItems, "Sides")}
+          {selectedCategory === "drinks" && renderMenuItems(drinksItems, "Drinks")}
+        </div>
 
         <ComboCustomizationModal
           isOpen={comboModalOpen}

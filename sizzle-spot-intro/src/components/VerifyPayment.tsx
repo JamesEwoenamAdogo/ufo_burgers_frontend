@@ -25,7 +25,7 @@ const PaymentCallback = () => {
         const res = await axios.get(`/payment/verify/${reference}`);
         if (res.data.success) {
           // Place the order in your backend
-          const orderResponse = await axios.post("/add-order", orderData);
+          const orderResponse = await axios.post("/add-order", {orderData, paymentStatus:"paid"});
           if (orderResponse.data.success) {
             setStatus("✅ Payment successful! Your order has been placed.");
             localStorage.removeItem("pending_order");

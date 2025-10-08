@@ -99,7 +99,7 @@ const Menu = () => {
       time: "12min",
       isSpicy: false,
       popular: true,
-      image: ufoBeefImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759528875/Beef_Burger_nuw01s.jpg",
     },
     {
       id: 'galaxy-chicken',
@@ -111,7 +111,7 @@ const Menu = () => {
       time: "12min",
       isSpicy: false,
       popular: true,
-      image: galaxyChickenImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759529024/Chicken_Burger_Combo_fg7eay.jpg",
     },
     {
       id: 'ufo-wagyu',
@@ -159,7 +159,7 @@ const Menu = () => {
       time: "8min",
       isSpicy: false,
       popular: false,
-      image: galaxyChickenSandwichImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759529459/Galaxy_Chicken_Sandwich_yuv37j.jpg",
     },
     {
       id: 'hotdog-bite',
@@ -171,7 +171,7 @@ const Menu = () => {
       time: "6min",
       isSpicy: false,
       popular: false,
-      image: hotdogBiteImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759529794/Hot_Dog_Bite_qmmydj.jpg",
     },
     {
       id: 'egg-burger',
@@ -183,7 +183,7 @@ const Menu = () => {
       time: "7min",
       isSpicy: false,
       popular: false,
-      image: eggBurgerImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759529184/Egg_Burger_okpwr5.jpg",
     },
   ];
 
@@ -309,7 +309,7 @@ const Menu = () => {
       time: "8min",
       isSpicy: false,
       popular: false,
-      image: flakesCornDogImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759577730/Cheese_Flakes_Corn_Dog_urnv1g.jpg",
     },
     {
       id: 'indomie-corn-dog',
@@ -321,7 +321,7 @@ const Menu = () => {
       time: "8min",
       isSpicy: false,
       popular: false,
-      image: indomieCornDogImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759577206/2in1_mhyj7i.jpg",
     },
     {
       id: 'cheesy-sausage-dog',
@@ -345,11 +345,11 @@ const Menu = () => {
       time: "10min",
       isSpicy: false,
       popular: true,
-      image: cheeseFlakesCornDogImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759577730/Cheese_Flakes_Corn_Dog_urnv1g.jpg",
     },
     {
       id: 'cheese-indomie-corn-dog',
-      name: "CHEESE INDOMIE CORN DOG X2",
+      name: "CHEESE INDOMIE CORN DOG",
       description: "Crispy mozzarella coated in crunchy Indomie",
       price: 56.00,
       oldPrice: 80.00,
@@ -357,7 +357,7 @@ const Menu = () => {
       time: "10min",
       isSpicy: false,
       popular: false,
-      image: cheeseIndomieCornDogImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759577206/2in1_mhyj7i.jpg",
     },
   ];
 
@@ -453,7 +453,7 @@ const Menu = () => {
       id: 'golden-fried-rice',
       name: "GOLDEN FRIED RICE",
       description: "Fluffy rice stir-fried with egg",
-      price: 35.00,
+      price: 50.00,
       oldPrice: 50.00,
       rating: 4.6,
       time: "8min",
@@ -471,7 +471,7 @@ const Menu = () => {
       time: "5min",
       isSpicy: false,
       popular: true,
-      image: friesImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759578249/French_Fries_iveoja.jpg",
     },
     {
       id: 'sweet-potato-fries',
@@ -483,7 +483,7 @@ const Menu = () => {
       time: "6min",
       isSpicy: false,
       popular: true,
-      image: sweetPotatoesImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759637809/Sweet_Potato_lce8im.jpg",
     },
     {
       id: 'yam-chips',
@@ -495,7 +495,7 @@ const Menu = () => {
       time: "6min",
       isSpicy: false,
       popular: false,
-      image: yamImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759576862/Fried_Yam_fuvotr.jpg",
     },
   ];
 
@@ -560,6 +560,42 @@ const Menu = () => {
       isSpicy: false,
       popular: true,
       image: milkshakeImage,
+    },
+    {
+      id: 'strawberry_milkshake',
+      name: "STRAWBERRY MILKSHAKE",
+      description: "",
+      price: 48.00,
+      oldPrice: 60.00,
+      rating: 4.8,
+      time: "5min",
+      isSpicy: false,
+      popular: true,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759530419/Strawberry_MilkShake_g86py4.jpg",
+    },
+    {
+      id: 'chcolate_milkshake',
+      name: "CHOCOLATE MILKSHAKE",
+      description: "",
+      price: 48.00,
+      oldPrice: 60.00,
+      rating: 4.8,
+      time: "5min",
+      isSpicy: false,
+      popular: true,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759529958/Chocoloate_Shake_lmwqbd.jpg",
+    },
+    {
+      id: 'vanilla_milkshake',
+      name: "VANILLA MILKSHAKE",
+      description: "",
+      price: 48.00,
+      oldPrice: 60.00,
+      rating: 4.8,
+      time: "5min",
+      isSpicy: false,
+      popular: true,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759530160/Vanilla_Milkshake_an4r0z.jpg",
     },
   ];
 
@@ -649,7 +685,7 @@ const Menu = () => {
       time: "15min",
       isSpicy: false,
       popular: true,
-      image: ufoBeefImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759528875/Beef_Burger_nuw01s.jpg",
     },
     {
       id: 'ufo-wagyu-combo',
@@ -661,7 +697,7 @@ const Menu = () => {
       time: "18min",
       isSpicy: false,
       popular: true,
-      image: ufoWagyuImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759528875/Beef_Burger_nuw01s.jpg",
     },
     {
       id: 'galaxy-chicken-combo',
@@ -673,7 +709,7 @@ const Menu = () => {
       time: "15min",
       isSpicy: false,
       popular: true,
-      image: galaxyChickenImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759529024/Chicken_Burger_Combo_fg7eay.jpg",
     },
     {
       id: 'galaxy-wings-combo',
@@ -685,7 +721,7 @@ const Menu = () => {
       time: "12min",
       isSpicy: false,
       popular: false,
-      image: galaxyChickenWingsImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759576242/Chicken_Wings_Combo_gm1xhw.jpg",
     },
     {
       id: 'galaxy-wings-combo2-combo',
@@ -697,7 +733,7 @@ const Menu = () => {
       time: "18min",
       isSpicy: false,
       popular: true,
-      image: galaxyChickenWingsImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759576242/Chicken_Wings_Combo_gm1xhw.jpg",
     },
     {
       id: 'galaxy-bites-combo',
@@ -709,7 +745,7 @@ const Menu = () => {
       time: "10min",
       isSpicy: false,
       popular: false,
-      image: galaxyChickenBitesImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759637112/Chicken_Bites_Combo_rrbok8.jpg",
     },
     {
       id: 'ufo-beef-wing-combo-combo',
@@ -760,7 +796,7 @@ const Menu = () => {
       time: "15min",
       isSpicy: false,
       popular: true,
-      image: ufoWagyuImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759580005/Beef_Burger_1_sb9woq.jpg",
     },
     {
       id: 'ufo-beef-burger-burgers-wings',
@@ -772,7 +808,7 @@ const Menu = () => {
       time: "12min",
       isSpicy: false,
       popular: true,
-      image: ufoBeefImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759580005/Beef_Burger_1_sb9woq.jpg",
     },
     {
       id: 'galaxy-chicken-burger-burgers-wings',
@@ -784,7 +820,7 @@ const Menu = () => {
       time: "12min",
       isSpicy: false,
       popular: true,
-      image: galaxyChickenImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759580796/Chicken_Burger_xr7ilm.jpg",
     },
     {
       id: 'ufo-egg-burger',
@@ -796,7 +832,7 @@ const Menu = () => {
       time: "7min",
       isSpicy: false,
       popular: false,
-      image: eggBurgerImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759529184/Egg_Burger_okpwr5.jpg",
     },
     {
       id: 'galaxy-chicken-wings-burgers-wings',
@@ -808,7 +844,7 @@ const Menu = () => {
       time: "10min",
       isSpicy: false,
       popular: true,
-      image: galaxyChickenWingsImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759578369/Chicken_Wings_qamc2v.jpg",
     },
   ];
 
@@ -835,7 +871,7 @@ const Menu = () => {
       time: "8min",
       isSpicy: false,
       popular: true,
-      image: galaxyChickenBitesImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759577883/Chicken_Bites_a0kukr.jpg",
     },
     {
       id: 'galaxy-chicken-sandwich-bites',
@@ -847,7 +883,7 @@ const Menu = () => {
       time: "8min",
       isSpicy: false,
       popular: false,
-      image: galaxyChickenSandwichImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759529459/Galaxy_Chicken_Sandwich_yuv37j.jpg",
     },
     {
       id: 'corndog-bite-bites',
@@ -871,7 +907,7 @@ const Menu = () => {
       time: "6min",
       isSpicy: false,
       popular: false,
-      image: hotdogBiteImage,
+      image: "https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759529794/Hot_Dog_Bite_qmmydj.jpg",
     },
   ];
 

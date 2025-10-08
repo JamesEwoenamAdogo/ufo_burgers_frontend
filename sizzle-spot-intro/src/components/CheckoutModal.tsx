@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCart, CartItem } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { CreditCard, MapPin, Clock } from "lucide-react";
+import { CreditCard, MapPin, Clock, AlertTriangle } from "lucide-react";
 import axios from "axios";
 
 interface CheckoutModalProps {
@@ -29,6 +29,7 @@ const CheckoutModal = ({ open, onOpenChange, cartItems, total }: CheckoutModalPr
     specialInstructions: '',
    
   });
+  const [referenceCode,setReferenceCode] = useState("")
 
   // Initialize form data with localStorage values when component mounts
   useEffect(() => {
@@ -49,43 +50,93 @@ const CheckoutModal = ({ open, onOpenChange, cartItems, total }: CheckoutModalPr
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
-
-  const handleSubmit = async(e: React.FormEvent) => {
-    e.preventDefault();
-
+  
+  
 
 
-    const userId = localStorage.getItem("id")
-    const meal = JSON.parse(localStorage.getItem("ufo-burgers-cart"))
-    
-    
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    const finalMeal = meal.map((item)=>{return {name:item.name,price:item.price,quantity:item.quantity}})
-    const order = {...formData,userId,orderType,cost:finalTotal,meal:finalMeal,status:"order placed"}
-    const response = await axios.post("/add-order", order)
-    console.log(response)
-    console.log(order)
-    
-    // Simulate order processing
+  // Check minimum order amount
+  if (total < 40) {
     toast({
-      title: "🛸 Order Confirmed!",
-      description: `Your cosmic burger order has been received! ${orderType === 'pickup' ? 'Ready for pickup in 15-20 minutes.' : 'Delivery estimated in 30-45 minutes.'}`,
+      title: "⚠️ Minimum Order Required",
+      description: "You have ordered less than the minimum amount of ₵40. Please add more items to your cart.",
+      variant: "destructive",
     });
-    
-    // Clear cart and close modal
-    dispatch({ type: 'CLEAR_CART' });
-    onOpenChange(false);
-    
-    const fullName = localStorage.getItem("name") || ""
-    const phoneNumber = localStorage.getItem("phone") || ""
-    // Reset form
-    setFormData({
-      fullName, phoneNumber, StreetAddress: '', city: '', specialInstructions: '',
-      
-    });
-    localStorage.removeItem("ufo-burger-cart")
+    return;
+  }
 
+  const userId = localStorage.getItem("id")|| `${formData.fullName}${Math.ceil(Math.random()*100000)}`;
+  const meal = JSON.parse(localStorage.getItem("ufo-burgers-cart") || "[]");
+
+  const finalMeal = meal.map((item) => ({
+    name: item.name,
+    price: item.price,
+    quantity: item.quantity,
+  }));
+
+  
+  const orderData = {
+    ...formData,
+    userId,
+    orderType,
+    cost: finalTotal ,
+    meal: finalMeal,
+    status: "pending payment",
   };
+
+  try {
+    const retryOrder = JSON.parse(localStorage.getItem("payment_success"))
+    if(retryOrder&& retryOrder.orderData.cost==orderData.cost&&JSON.stringify(retryOrder.orderData.meal)==JSON.stringify(orderData.meal)){
+      const orderResponse = await axios.post("/add-order",orderData)
+
+        if(orderResponse.data.success){
+            localStorage.removeItem("payment_success")
+            toast({
+            title: "✅ Order Successful!",
+            description: "Your order has been placed successfully.",
+          });
+        }
+    }
+    // Call backend to initialize Paystack transaction
+    const response = await axios.post("/initiate-payment", {
+      email: "jamesewoenam7@gmail.com", // Paystack needs an email
+      amount: Math.round(orderData.cost),
+      split_code: "SPL_osnI8AICx0", // your split code from Paystack
+      orderData,
+    });
+
+    const data = response.data;
+    console.log(data)
+
+    localStorage.setItem("reference",data.data.reference)
+    localStorage.setItem("order",JSON.stringify(orderData))
+  
+
+    if (data.status && data.data.authorization_url) {
+      // ✅ Redirect user to Paystack checkout page
+      window.location.href = data.data.authorization_url;
+
+
+      
+    } else {
+      toast({
+        title: "⚠️ Payment initialization failed",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    toast({
+      title: "🚫 Error initializing payment",
+      description: "Network or server issue. Try again.",
+      variant: "destructive",
+    });
+  }
+};
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -262,6 +313,18 @@ const CheckoutModal = ({ open, onOpenChange, cartItems, total }: CheckoutModalPr
               </div>
             </div>
           </div> */}
+          {/* Non-Refundable Warning */}
+          <div className="bg-destructive/10 border-2 border-destructive rounded-lg p-4">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="h-6 w-6 text-destructive flex-shrink-0 mt-0.5" />
+              <div className="space-y-1">
+                <h4 className="font-bold text-destructive text-base">Important: Non-Refundable Payment</h4>
+                <p className="text-sm text-foreground">
+                  All payments are final and non-refundable. Please review your order carefully before proceeding with payment.
+                </p>
+              </div>
+            </div>
+          </div>
 
           {/* Order Summary */}
           <div className="space-y-4 bg-secondary/50 p-4 rounded-lg">

@@ -10,6 +10,9 @@ import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
 import axios from "axios"
+import PaymentCallback from "./components/VerifyPayment";
+
+
 
 const queryClient = new QueryClient();
 axios.defaults.baseURL= "https://ufo-burgers.onrender.com/api/v1"
@@ -25,6 +28,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verify-payment" element={<PaymentCallback/>}/>
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
-import heroImage from "@/assets/hero-burger.jpg";
+// import heroImage from "@/assets/background-hero.jpg";
 
 const Hero = () => {
   return (
@@ -8,7 +8,7 @@ const Hero = () => {
       {/* Background Image with Enhanced Overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src={heroImage}
+          src={"https://res.cloudinary.com/dcr9kvnd4/image/upload/v1759625074/Background_zobmxh.jpg"}
           alt="Gourmet burger hero"
           className="w-full h-full object-cover scale-105 transition-transform duration-1000"
         />

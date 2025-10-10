@@ -103,7 +103,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     const response = await axios.post("/initiate-payment", {
       email: "jamesewoenam7@gmail.com", // Paystack needs an email
       amount: Math.round(orderData.cost),
-      split_code: "SPL_osnI8AICx0", // your split code from Paystack
+      split_code: "SPL_HwzcZ08yEM", // your split code from Paystack
       orderData,
     });
 

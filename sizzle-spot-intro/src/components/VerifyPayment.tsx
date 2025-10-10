@@ -28,8 +28,8 @@ const PaymentCallback = () => {
           const orderResponse = await axios.post("/add-order", {orderData, paymentStatus:"paid"});
           if (orderResponse.data.success) {
             setStatus("✅ Payment successful! Your order has been placed.");
-            localStorage.removeItem("pending_order");
-            localStorage.removeItem("pending_reference");
+            localStorage.removeItem("order");
+            localStorage.removeItem("reference");
           } else {
             setStatus("⚠️ Payment verified, but order placement failed.");
           }

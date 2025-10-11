@@ -112,6 +112,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
     localStorage.setItem("reference",data.data.reference)
     localStorage.setItem("order",JSON.stringify(orderData))
+    
   
 
     if (data.status && data.data.authorization_url) {

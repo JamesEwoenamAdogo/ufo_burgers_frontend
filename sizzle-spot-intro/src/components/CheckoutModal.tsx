@@ -159,7 +159,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 onClick={() => setOrderType('delivery')}
               >
                 <Clock className="mr-2 h-4 w-4" />
-                Delivery (+₵15.00)
+                Delivery
               </Button>
             </div>
           </div>

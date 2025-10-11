@@ -15,7 +15,7 @@ import PaymentCallback from "./components/VerifyPayment";
 
 
 const queryClient = new QueryClient();
-axios.defaults.baseURL= "https://ufo-burgers.onrender.com/api/v1"
+axios.defaults.baseURL= "http://localhost:9000/api/v1"
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <CartProvider>

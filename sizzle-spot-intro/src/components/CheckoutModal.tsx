@@ -88,17 +88,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   try {
     const retryOrder = JSON.parse(localStorage.getItem("payment_success"))
-    if(retryOrder&& retryOrder.orderData.cost==orderData.cost&&JSON.stringify(retryOrder.orderData.meal)==JSON.stringify(orderData.meal)){
-      const orderResponse = await axios.post("/add-order",orderData)
-
-        if(orderResponse.data.success){
-            localStorage.removeItem("payment_success")
-            toast({
-            title: "✅ Order Successful!",
-            description: "Your order has been placed successfully.",
-          });
-        }
-    }
+    
     // Call backend to initialize Paystack transaction
     const response = await axios.post("/initiate-payment", {
       email: "jamesewoenam7@gmail.com", // Paystack needs an email

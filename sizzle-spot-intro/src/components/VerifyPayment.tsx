@@ -16,18 +16,18 @@ const PaymentCallback = () => {
           || localStorage.getItem("reference");
 
         const orderData = JSON.parse(localStorage.getItem("order") || "{}");
-        const formData = JSON.parse(localStorage.getItem("formData"))
+        // const formData = JSON.parse(localStorage.getItem("formData"))
 
         if (!reference || !orderData) {
           setStatus("Invalid payment reference or missing order data.");
           return;
         }
 
-        const res = await axios.get(`/payment/verify/${reference}`);
+        const res = await axios.get(`/payment/verify/${reference}/${localStorage.getItem("order")}`);
         if (res.data.success) {
           // Place the order in your backend
-          const orderResponse = await axios.post("/add-order", {...orderData, paymentStatus:"paid"});
-          if (orderResponse.data.success) {
+          // const orderResponse = await axios.post("/add-order", {...orderData, paymentStatus:"paid"});
+          if (res.data.success) {
             setStatus("✅ Payment successful! Your order has been placed.");
             localStorage.removeItem("order");
             localStorage.removeItem("reference");

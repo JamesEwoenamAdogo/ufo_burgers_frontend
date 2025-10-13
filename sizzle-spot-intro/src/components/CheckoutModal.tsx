@@ -5,22 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useCart, CartItem } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { CreditCard, MapPin, Clock, AlertTriangle } from "lucide-react";
+import { CreditCard, MapPin, Clock, AlertTriangle, Loader2 } from "lucide-react";
 import axios from "axios";
 
-interface CheckoutModalProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  cartItems: CartItem[];
-  total: number;
-}
-
-const CheckoutModal = ({ open, onOpenChange, cartItems, total }: CheckoutModalProps) => {
+const CheckoutModal = ({ open, onOpenChange, cartItems, total }) => {
   const { dispatch } = useCart();
   const { toast } = useToast();
-  const [orderType, setOrderType] = useState<'pickup' | 'delivery'>('pickup');
+  const [orderType, setOrderType] = useState('pickup');
   const [formData, setFormData] = useState({
     fullName: '',
     phoneNumber: '',
@@ -30,6 +23,7 @@ const CheckoutModal = ({ open, onOpenChange, cartItems, total }: CheckoutModalPr
    
   });
   const [referenceCode,setReferenceCode] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
   // Initialize form data with localStorage values when component mounts
   useEffect(() => {
@@ -47,14 +41,14 @@ const CheckoutModal = ({ open, onOpenChange, cartItems, total }: CheckoutModalPr
   const tax = (total) * 0.01; // Ghana VAT rate
   const finalTotal = total + tax;
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
   
   
 
 
-const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   // Check minimum order amount
@@ -87,6 +81,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   };
 
   try {
+    setIsLoading(true)
     const retryOrder = JSON.parse(localStorage.getItem("payment_success"))
     
     // Call backend to initialize Paystack transaction
@@ -117,6 +112,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         description: "Please try again later.",
         variant: "destructive",
       });
+      setIsLoading(false)
     }
   } catch (error) {
     console.error(error);
@@ -125,6 +121,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       description: "Network or server issue. Try again.",
       variant: "destructive",
     });
+    setIsLoading(false)
   }
 };
 
@@ -355,8 +352,16 @@ const handleSubmit = async (e: React.FormEvent) => {
           <Button 
             type="submit" 
             className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 btn-glow text-lg py-6"
+            disabled={isLoading}
           >
-            🚀 Proceed to checkout - ₵{finalTotal.toFixed(2)}
+            {isLoading ? (
+              <span className="flex items-center justify-center w-full">
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                Redirecting to Paystack…
+              </span>
+            ) : (
+              <>🚀 Proceed to checkout - ₵{finalTotal.toFixed(2)}</>
+            )}
           </Button>
         </form>
       </DialogContent>

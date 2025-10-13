@@ -77,7 +77,7 @@ const handleSubmit = async (e) => {
     orderType,
     cost: finalTotal ,
     meal: finalMeal,
-    status: "pending payment",
+    status: "pending",
   };
 
   try {
